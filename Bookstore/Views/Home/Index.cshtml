@@ -1,0 +1,39 @@
+﻿@*Abbie Luper's Index Page*@
+
+@{
+    ViewData["Title"] = "Home Page";
+    ViewData["Header"] = "Bookstore";
+}
+
+@model BooksViewModel
+
+<br />
+
+@foreach (Book b in Model.Books) // BooksViewModel has Projects and PageInfo inside so I must clarify what I am using here
+{
+<div style="background-color: #f2f7f2; color: #545557; padding-left:18px; ">
+    <br />
+    <h4>@b.Title</h4>
+
+    <ul>
+        <li>Author: @b.Author</li>
+        <li>Publisher: @b.Publisher</li>
+        <li>ISBN: @b.Isbn</li>
+        <li>Classification/Category: @b.Classification</li>
+        <li>Number of Pages: @b.PageCount</li>
+        <li>Price: @b.Price</li>
+    </ul>
+    <br />
+</div>
+
+    <br />
+}
+
+
+@*<div page-blah="@Model.PageInfo" page-action="Index"></div>*@
+
+
+<div page-blah="@Model.PageInfo" page-action="Index" page-classes-enabled="true"
+     page-class="btn" page-class-normal="btn-outline-dark"
+     page-class-selected="btn-primary" class="btn-group pull-right m-1">
+</div>
