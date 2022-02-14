@@ -35,6 +35,23 @@
             </div>
         </nav>
     </header>
+
+    @*TEST CSS*@
+    @*<div class="bg-white text-black p-2">
+        <span class="navbar-brand ml-2">BOOK LIST</span>
+    </div>*@
+<div class="row m-1 p-1">
+    <div id="categories" class="col-3">
+        Put something useful here later
+    </div>
+    <div class="col-8">
+        @RenderBody()
+    </div>
+    <div class="col-1">
+    </div>
+</div>
+    @*END OF TEST CSS*@
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
