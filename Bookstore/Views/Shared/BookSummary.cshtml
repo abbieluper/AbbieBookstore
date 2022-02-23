@@ -1,0 +1,35 @@
+﻿@*This is the parital page view for book summary information*@
+
+@*I named it Book in foreach loop on index page*@
+@model Book
+
+@*see if this part looks good!!*@
+<div style="background-color: #f2f7f2; color: #545557;" class="card card-outline-primary m-3 p-3">
+    <br />
+    <h4>@Model.Title</h4>
+
+    <ul>
+        <li>Author: @Model.Author</li>
+        <li>Publisher: @Model.Publisher</li>
+        <li>ISBN: @Model.Isbn</li>
+        <li>Classification/Category: @Model.Classification</li>
+        <li>Number of Pages: @Model.PageCount</li>
+        <li>Price: @Model.Price</li>
+    </ul>
+    <br />
+
+    <form method="post" asp-page="/Buy">
+
+        <input type="hidden" asp-for="@Model.BookId" />
+        <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+        @*** don't forget to go to _ViewImports.cshtml and add @using Bookstore.Infrastructure*@
+
+        <span class="card-text">
+            <button type="submit" class="btn btn-success btn-sm float-end">Add to Cart</button>
+        </span>
+
+    </form>
+
+</div>
+
+<br />

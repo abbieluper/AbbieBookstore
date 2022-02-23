@@ -41,6 +41,11 @@ namespace Bookstore
             });
 
              services.AddScoped<IBookstoreRepository, EFBookstoreRepository>();
+
+            services.AddRazorPages();
+
+            services.AddDistributedMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,7 +62,10 @@ namespace Bookstore
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
+
+            app.UseSession();
 
             app.UseRouting();
 
@@ -66,7 +74,28 @@ namespace Bookstore
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapDefaultControllerRoute(); // we could have also created a custom endpoint and told it exactly where to go
+                endpoints.MapControllerRoute("typepage",
+                    // bookType name comes from Default.cshtml where we set it up as asp-route-Category
+                    "{Category}/Page{pageNum}",// curly braces tell us that it will be a piece of information passed in 
+                    new { Controller = "Home", action = "Index" });
+
+                // use this endpoint to show page numbers in the URL in a clean way -- now it will only show "Page" and the number instead of ?pageNum=1
+                endpoints.MapControllerRoute("Paging",
+                    "Page{pageNum}", //pageNum is a variable 
+                    new { Controller = "Home", action = "Index", pageNum = 1 }); // set default pageNum
+
+                // endpoint if we are just passed a category
+                endpoints.MapControllerRoute("type",
+                    "{Category}",
+                    new { Controller = "Home", action = "Index", pageNum = 1 });
+                // we will default to the first page of that category if we are not passed a page number
+
+
+                endpoints.MapDefaultControllerRoute(); // this is the default -- we could have also created a custom endpoint and told it exactly where to go
+
+                endpoints.MapRazorPages();
+
+
             });
         }
     }

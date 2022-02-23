@@ -30,6 +30,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Buy">View Cart</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -40,13 +43,22 @@
     @*<div class="bg-white text-black p-2">
         <span class="navbar-brand ml-2">BOOK LIST</span>
     </div>*@
+
 <div class="row m-1 p-1">
-    <div id="categories" class="col-3">
-        Put something useful here later
+
+    <div style="padding-left:20px;"></div>
+
+    <div id="categories" class="col-2" style="background-color: #f2f7f2; padding-left:20px;">
+        <br />
+        <vc:types></vc:types>
     </div>
+
+    <div class="col-1"></div>
+
     <div class="col-8">
         @RenderBody()
     </div>
+
     <div class="col-1">
     </div>
 </div>

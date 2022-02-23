@@ -1,0 +1,22 @@
+﻿@*This is a view component view*@
+
+@*it is pulling information from the TypesViewComponent.cs file that we created -- we are pulling book types*@
+@model IEnumerable<string>
+
+
+@*why is this bootstrap not working?*@
+<div class="d-grid gap-2">
+    <a asp-controller="Home" asp-action="Index" asp-route-Category="" asp-route-pageNum="1" class="btn btn-outline-secondary btn-block">Home</a>
+
+    @foreach (string t in Model)
+    {
+        <br />
+        <a asp-controller="Home" asp-action="Index" asp-route-Category="@t" asp-route-pageNum="1"
+           class="btn @(ViewBag.SelectedType == t ? "btn-primary btn-block" : "btn-outline-secondary btn-block")">@t</a>
+
+        @*We are passing the book type/category to the url when we do asp-route-bookType="@t"*@
+    }
+
+</div>
+
+

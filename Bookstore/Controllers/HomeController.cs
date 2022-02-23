@@ -21,22 +21,26 @@ namespace Bookstore.Controllers
             repo = temp;
         }
 
-        public IActionResult Index(int pageNum = 1) // this sets the default of pageNum to 1
+        public IActionResult Index(string Category, int pageNum = 1) // this sets the default of pageNum to 1
         {
             int pageSize = 10;
 
             var x = new BooksViewModel
             {
                 Books = repo.Books // pass data to the index file
+                .Where(b => b.Category == Category || Category == null)
                 .OrderBy(b => b.Title)
                 .Skip((pageNum - 1) * pageSize)
                 .Take(pageSize),
 
                 PageInfo = new PageInfo
                 {
-                    TotalNumBooks = repo.Books.Count(),
+                    TotalNumBooks =  // if we have not selected a category then use count of all books - otherwise only count books from selected book category
+                        (Category == null
+                            ? repo.Books.Count()
+                            : repo.Books.Where(x => x.Category == Category).Count()),
                     BooksPerPage = pageSize,
-                    CurrentPage = pageNum
+                    CurrentPage = pageNum // pageNum comes from parameter being passed in 
                 }
             };
 
