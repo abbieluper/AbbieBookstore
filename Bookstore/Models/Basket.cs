@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace Bookstore.Models
@@ -12,7 +13,7 @@ namespace Bookstore.Models
         public List<BasketLineItem> Items { get; set; } = new List<BasketLineItem>();
 
         // basket items must consist of a property and a quantity
-        public void AddItem (Book book, int qty)
+        public virtual void AddItem (Book book, int qty)
         {
             BasketLineItem line = Items
                 .Where(b => b.Book.BookId == book.BookId)
@@ -33,10 +34,21 @@ namespace Bookstore.Models
             }
         }
 
+
+        public virtual void RemoveItem(Book book)
+        {
+            Items.RemoveAll(x => x.Book.BookId == book.BookId);
+        }
+
+        public virtual void ClearBasket()
+        {
+            Items.Clear();
+        }
+
+
         public double CalculateTotal()
         {
-            // ********** check this part!!!!! I AM GUESSING **********
-            //figure out how to multiple by the price!!
+            // *********
             double sum = Items.Sum(x => x.Quantity * x.Book.Price);
 
             return sum;
@@ -45,8 +57,10 @@ namespace Bookstore.Models
 
     public class BasketLineItem
     {
+        [Key]
         public int LineId { get; set; }
         public Book Book { get; set; }
         public int Quantity { get; set; }
+        public double Price { get; set; }
     }
 }

@@ -6,11 +6,24 @@
     <title>@ViewData["Title"] - Bookstore</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="/lib/font-awesome/css/all.min.css" rel="stylesheet" />
 </head>
 
 @*this is the shared layout page*@
 
 <body>
+    @*this is the cart icon*@
+    <div class="bg-dark text-white p-2">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col navbar-brand">BOOKSTORE</div>
+                <div class="col-6 text-right">
+                    <vc:cart-summary />
+                </div>
+            </div>
+        </div>
+    </div>
+
     <br />
     <h1 class="SiteHeadingOverwrite" style="text-align: center">@ViewData["Header"]</h1>
 
@@ -41,27 +54,27 @@
 
     @*TEST CSS*@
     @*<div class="bg-white text-black p-2">
-        <span class="navbar-brand ml-2">BOOK LIST</span>
-    </div>*@
+            <span class="navbar-brand ml-2">BOOK LIST</span>
+        </div>*@
 
-<div class="row m-1 p-1">
+    <div class="row m-1 p-1">
 
-    <div style="padding-left:20px;"></div>
+        <div style="padding-left:20px;"></div>
 
-    <div id="categories" class="col-2" style="background-color: #f2f7f2; padding-left:20px;">
-        <br />
-        <vc:types></vc:types>
+        <div id="categories" class="col-2" style="background-color: #f2f7f2; padding-left:20px;">
+            <br />
+            <vc:types></vc:types>
+        </div>
+
+        <div class="col-1"></div>
+
+        <div class="col-8">
+            @RenderBody()
+        </div>
+
+        <div class="col-1">
+        </div>
     </div>
-
-    <div class="col-1"></div>
-
-    <div class="col-8">
-        @RenderBody()
-    </div>
-
-    <div class="col-1">
-    </div>
-</div>
     @*END OF TEST CSS*@
 
     <div class="container">
