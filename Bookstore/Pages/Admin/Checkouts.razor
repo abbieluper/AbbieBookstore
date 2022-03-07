@@ -2,10 +2,12 @@
 @inherits OwningComponentBase<ICheckoutRepository>
 
 
-<CheckoutTable TableTitle="Uncollected Checkouts" Checkouts="UncollectedCheckouts"
-               ButtonLabel="Collected" CheckoutSelected="CollectCheckout"></CheckoutTable>
+<CheckoutTable TableTitle="Unshipped Orders" Checkouts="UncollectedCheckouts"
+               ButtonLabel="Shipped" CheckoutSelected="CollectCheckout"></CheckoutTable>
 
-<CheckoutTable TableTitle="Collected Checkouts" Checkouts="CollectedCheckouts"
+<br />
+
+<CheckoutTable TableTitle="Shipped Orders" Checkouts="CollectedCheckouts"
                ButtonLabel="Reset" CheckoutSelected="ResetCheckout"></CheckoutTable>
 
 <button class="btn btn-info" @onclick="@(x => UpdateData())">Refresh Data</button>
