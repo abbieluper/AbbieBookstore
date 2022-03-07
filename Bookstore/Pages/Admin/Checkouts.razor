@@ -1,0 +1,45 @@
+﻿@page "/admin/checkouts"
+@inherits OwningComponentBase<ICheckoutRepository>
+
+
+<CheckoutTable TableTitle="Uncollected Checkouts" Checkouts="UncollectedCheckouts"
+               ButtonLabel="Collected" CheckoutSelected="CollectCheckout"></CheckoutTable>
+
+<CheckoutTable TableTitle="Collected Checkouts" Checkouts="CollectedCheckouts"
+               ButtonLabel="Reset" CheckoutSelected="ResetCheckout"></CheckoutTable>
+
+<button class="btn btn-info" @onclick="@(x => UpdateData())">Refresh Data</button>
+
+
+@code {
+
+    // this is going to grab the data
+    public ICheckoutRepository repo => Service;
+
+    public IEnumerable<Checkout> AllCheckouts { get; set; }
+    public IEnumerable<Checkout> UncollectedCheckouts { get; set; }
+    public IEnumerable<Checkout> CollectedCheckouts { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        await UpdateData();
+    }
+
+    public async Task UpdateData()
+    {
+        AllCheckouts = await repo.Checkouts.ToListAsync();
+        UncollectedCheckouts = AllCheckouts.Where(x => !x.Shipped);
+        CollectedCheckouts = AllCheckouts.Where(x => x.Shipped);
+    }
+
+    public void CollectCheckout(int id) => UpdateCheckout(id, true);
+    public void ResetCheckout(int id) => UpdateCheckout(id, false);
+
+    private void UpdateCheckout(int id, bool paid)
+    {
+        Checkout c = repo.Checkouts.FirstOrDefault(x => x.CheckoutId == id);
+        c.Shipped = paid;
+        repo.SaveCheckout(c);
+    }
+
+}

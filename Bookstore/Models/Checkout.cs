@@ -34,5 +34,9 @@ namespace Bookstore.Models
 
         [Required(ErrorMessage = "Please enter a country")]
         public string Country { get; set; }
+
+        [BindNever]
+        public bool Shipped { get; set; }
     }
 }
+

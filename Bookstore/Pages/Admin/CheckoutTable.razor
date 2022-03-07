@@ -1,0 +1,64 @@
+﻿
+<table class="table table-sm table-striped table-bordered">
+
+    <thead>
+        <tr>
+            <th colspan="5" class="text-center">@TableTitle</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @if (Checkouts?.Count() > 0) // payments might be null --> Payments? // the name Checkouts is coming from below
+        {
+            @foreach (Checkout c in Checkouts)
+            {
+                <tr>
+                    <td>@c.Name</td>
+                    <td>@c.Zip</td>
+                    <th>Book</th>
+                    <th>Quantity</th>
+
+                    <td>
+                        <button class="btn btn-sm btn-danger" @onclick="@(x => CheckoutSelected.InvokeAsync(c.CheckoutId))">
+                            @ButtonLabel
+                        </button>
+                    </td>
+                </tr>
+
+                @foreach (BasketLineItem bli in c.Lines)
+                {
+                    <tr>
+                        <td colspan="2"></td>
+                        <td>@bli.Book.Title</td>
+                        <td>@bli.Quantity</td>
+                    </tr>
+                }
+            }
+        }
+
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center">No Orders</td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+@code {
+
+    [Parameter]
+    public string TableTitle { get; set; } = "Payments";
+
+    [Parameter]
+    public IEnumerable<Checkout> Checkouts { get; set; }
+
+    [Parameter]
+    public string ButtonLabel { get; set; } = "Collected";  // we are going to change what is on the button depending on if we have received the payment or not
+
+    [Parameter]
+    public EventCallback<int> CheckoutSelected { get; set; }
+
+}
