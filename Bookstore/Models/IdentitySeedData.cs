@@ -10,7 +10,7 @@ namespace Bookstore.Models
     public static class IdentitySeedData
     {
         private const string adminUser = "Admin";
-        private const string adminPassword = "Password123456!";
+        private const string adminPassword = "413ExtraYeetPeriod(t)!";
 
         // method we are calling to make sure their is data in database to begin with 
         public static async void EnsurePopulated(IApplicationBuilder app)

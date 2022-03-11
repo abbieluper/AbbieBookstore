@@ -13,13 +13,13 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 
-<body>
+<body style="background: #000;">
 
     <div class="bg-dark text-white p-2">
         <span class="navbar-brand m-l-2">Bookstore</span>
     </div>
 
-    <div class="m-1 p-1">
+    @*<div class="m-1 p-1">
 
         <div class="text-danger" asp-validation-summary="All"></div>
 
@@ -42,8 +42,48 @@
 
         </form>
 
+    </div>*@
+
+@*bootstrap form*@
+
+    <br /><br /><br />
+
+<form method="post" asp-controller="Account" asp-action="Login">
+    <div class="container mt-7">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-6">
+                <div class="card px-5 py-12" id="form1">
+                    <div class="form-data" v-if="!submitted">
+                        <br />
+                        <div class="text-danger" asp-validation-summary="All"></div>
+                        <div class="forms-inputs mb-4">
+                            <label asp-for="Username">User Name:</label>
+                            <input asp-for="Username" class="form-control" />
+                        </div>
+
+                        <div class="forms-inputs mb-4">
+                            <label asp-for="Password">Password:</label>
+                            <input asp-for="Password" class="form-control" type="password" />
+                        </div>
+
+                        @*<button class="btn btn-dark w-100" type="submit" style="text-align:center;">Log In</button>*@
+                        <div class="mb-3"> <button class="btn btn-dark w-100" type="submit" style="text-align:center;">Login</button> </div>
+                        <br />
+
+                        <input type="hidden" asp-for="ReturnUrl" />
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+</form>
+
+
+
 
 </body>
 
 </html>
+
+
